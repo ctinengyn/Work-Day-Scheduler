@@ -9,8 +9,13 @@
 // "ss" = Seconds
 // "a" = AM/PM
 
-var todayDate = moment().format("MMMM Do YYYY, h:mm:ss a");
-$("#currentDay").html(todayDate);
+var todayDate = function () {
+    var date = moment().format("MMMM Do YYYY, h:mm:ss a");
+    $("#currentDay").html(date);
+
+}
+
+setInterval(todayDate);
 
 $(document).ready(function () {
 
