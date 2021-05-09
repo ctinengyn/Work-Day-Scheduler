@@ -23,3 +23,28 @@ This is a basic day planner app that loops through the hours of 8am - 5pm(typica
 3.  Follows specific current date of when the user opens the app and use those hours of that day.
 4.  Allow the user to save text for each hour and change row color depending if it is a past, present for future hour.
 5.  Data of text is to be stored in localStorage of the browser until page is restarted. Refreshed page should still keep the localStorage.
+
+## Pseudo code for html
+1.  typical
+2.  allows save button to have the icon "save" optional
+3.  font families
+4.  use of bootstrap component
+5.  list timeblocks from 24 hour clock and 12 hours clock translation
+6.  jquery and moment links from https://cdnjs.com/libraries/moment.js/
+
+## Pseudo code for css
+1.  typical setup using html attributes and classes
+
+## Pseudo code for js
+1.  tells engine to load 1)html & 2)css first.
+2.  display current day & time.
+3.  get nearby values.
+4.  taken the change from the sibling html description attribute
+5.  taken the change from the parent html id attribute
+6.  set items in local storage.
+7.  load any saved data from LocalStorage - do this for each hour created. Should follow html 24 hour to 12 hour conversion.
+8.  get current number of hours.
+9.  use of moment.js
+10. loop over time blocks
+11. check if we've moved past this time, click into css/html given classes of past, present, or future
+12.  re-run function
