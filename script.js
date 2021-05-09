@@ -9,17 +9,20 @@
 // "ss" = Seconds
 // "a" = AM/PM
 
-var todayDate = function () {
-    var date = moment().format("MMMM Do YYYY, h:mm:ss a");
-    $("#currentDay").html(date);
+$(document).ready(function () {// tells engine to load 1)html & 2)css first.
+    //display current day & time.
+    $("#currentDay").text(moment().format("MMMM Do YYYY, h:mm:ss a")); // use of moment.js
+    //assign saveBtn click listener for user input and time stamp??
+    $(".saveBtn").on("click", function () {
+        //get nearby values.
+        console.log(this);
+        var text = $(this).siblings(".description").val(); // taken the change from the sibling html description attribute
+        var time = $(this).parent().attr("id"); // taken the change from the parent html id attribute
 
-}
-
-setInterval(todayDate);
-
-$(document).ready(function () {
-
-    // Local storage for information in timeblocks
+        //set items in local storage.
+        localStorage.setItem(time, text);
+    })
+    //load any saved data from LocalStorage - do this for each hour created. Should follow html 24 hour to 12 hour conversion.
     $("#hour8 .description").val(localStorage.getItem("hour8"));
     $("#hour9 .description").val(localStorage.getItem("hour9"));
     $("#hour10 .description").val(localStorage.getItem("hour10"));
@@ -31,46 +34,32 @@ $(document).ready(function () {
     $("#hour16 .description").val(localStorage.getItem("hour16"));
     $("#hour17 .description").val(localStorage.getItem("hour17"));
 
-    timeTracker();
+    function hourTracker() {
+        //get current number of hours.
+        var currentHour = moment().hour(); // use of moment.js
 
-    function timeTracker() {
-        // Current time of the day
-        var timeNow = moment().hour();
+        // loop over time blocks
+        $(".time-block").each(function () {
+            var blockHour = parseInt($(this).attr("id").split("hour")[1]);
+            console.log( blockHour, currentHour)
 
-        // Loop for each time blocks
-        $(".row").each(function () {
-            var blockTime = parseInt($(this).attr("id").split("hour")[1]);
-
-            // "Future" = Green
-            // "Present" = Red
-            // "Past" = Gray
-            if (blockTime > timeNow) {
+            //check if we've moved past this time, click into css/html given classes of past, present, or future
+            if (blockHour < currentHour) {
+                $(this).addClass("past");
                 $(this).removeClass("future");
                 $(this).removeClass("present");
-                $(this).addClass("past");
             }
-            else if (blockTime === timeNow) {
+            else if (blockHour === currentHour) {
                 $(this).removeClass("past");
-                $(this).removeClass("future");
                 $(this).addClass("present");
+                $(this).removeClass("future");
             }
             else {
                 $(this).removeClass("present");
                 $(this).removeClass("past");
                 $(this).addClass("future");
-
             }
         })
     }
-
-    // saveBtn (button) click listener 
-    $(".saveBtn").on("click", function () {
-        // Get nearby values of the description in JQuery
-        var text = $(this).siblings(".description").val();
-        var time = $(this).parent().attr("id");
-
-        // Save information in local storage
-        localStorage.setItem(time, text);
-    })
-
+    hourTracker(); //re-run function
 })
