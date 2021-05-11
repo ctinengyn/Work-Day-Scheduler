@@ -48,3 +48,6 @@ This is a basic day planner app that loops through the hours of 8am - 5pm(typica
 10. loop over time blocks
 11. check if we've moved past this time, click into css/html given classes of past, present, or future
 12.  re-run function
+
+## Below is the Code Quiz demo:
+![Work Day Schedule](images/example.jpg)
